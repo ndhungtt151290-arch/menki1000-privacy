@@ -56,8 +56,19 @@
             border-left: 4px solid #0b3575;
         }
         
-        .intro p {
-            margin-bottom: 0;
+        .lang-block {
+            margin-bottom: 30px;
+        }
+        
+        .lang-label {
+            display: inline-block;
+            background: #0b3575;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
         
         .section {
@@ -133,6 +144,24 @@
             text-decoration: underline;
         }
         
+        .ja-block {
+            background: #f0f9ff;
+            border-left: 3px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .ja-block p, .ja-block li {
+            color: #1e40af;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 30px 0;
+        }
+        
         @media (max-width: 600px) {
             body {
                 padding: 15px;
@@ -159,87 +188,206 @@
             </div>
         </header>
 
-        <div class="intro">
-            <p>Chào mừng bạn đến với Menki 1000+. Chúng tôi cam kết bảo vệ tuyệt đối quyền riêng tư và dữ liệu cá nhân của bạn. Chính sách này tuân thủ nghiêm ngặt các tiêu chuẩn <strong>Apple App Store Review Guidelines</strong> (Mục 5.1 - Privacy).</p>
+        <!-- Language Toggle -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button onclick="toggleLang('vi')" id="btn-vi" style="background: #0b3575; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin: 5px; cursor: pointer;">Tiếng Việt</button>
+            <button onclick="toggleLang('ja')" id="btn-ja" style="background: #e5e7eb; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 20px; margin: 5px; cursor: pointer;">日本語</button>
         </div>
 
-        <section class="section">
-            <h2>1. THU THẬP THÔNG TIN CÁ NHÂN</h2>
-            <p><strong>Menki 1000+ là ứng dụng ngoại tuyến (Offline App).</strong></p>
-            <p>Chúng tôi <strong>KHÔNG</strong> yêu cầu đăng ký tài khoản, <strong>KHÔNG</strong> thu thập, <strong>KHÔNG</strong> lưu trữ, <strong>KHÔNG</strong> theo dõi và <strong>KHÔNG</strong> chia sẻ bất kỳ thông tin cá nhân nào:</p>
-            <ul>
-                <li>Họ tên, số điện thoại, email, địa chỉ</li>
-                <li>Vị trí địa lý chính xác (GPS)</li>
-                <li>Số định danh thiết bị (IMEI/IDFA)</li>
-                <li>Thông tin thanh toán</li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2>2. DỮ LIỆU LƯU TRỮ CỤC BỘ</h2>
-            <p>Dữ liệu học tập được lưu trữ <strong>hoàn toàn cục bộ</strong> trên thiết bị qua AsyncStorage:</p>
-            <ul>
-                <li>Lịch sử làm đề thi thử</li>
-                <li>Tiến độ ôn tập từng chương</li>
-                <li>Danh sách "Câu hỏi hay sai"</li>
-                <li>Tùy chọn ngôn ngữ (Tiếng Việt / Tiếng Nhật)</li>
-            </ul>
-            <p>Chúng tôi <strong>KHÔNG</strong> có máy chủ (Server) và <strong>KHÔNG</strong> truy cập dữ liệu từ xa.</p>
-        </section>
-
-        <section class="section">
-            <h2>3. DỊCH VỤ QUẢNG CÁO - GOOGLE ADMOB</h2>
-            <p><strong>Menki 1000+ sử dụng Google AdMob</strong> để hiển thị quảng cáo và duy trì miễn phí ứng dụng.</p>
-            
-            <div class="highlight">
-                <div class="highlight-title">Google AdMob có thể thu thập:</div>
-                <ul style="margin: 10px 0 0 0;">
-                    <li>Loại thiết bị và hệ điều hành</li>
-                    <li>Dữ liệu sử dụng ứng dụng</li>
-                    <li>Vị trí địa lý ước tính</li>
-                    <li>Dữ liệu click và impression quảng cáo</li>
-                </ul>
+        <!-- Vietnamese Content -->
+        <div id="content-vi">
+            <div class="intro">
+                <p>Chào mừng bạn đến với Menki 1000+. Chúng tôi cam kết bảo vệ tuyệt đối quyền riêng tư và dữ liệu cá nhân của bạn. Chính sách này tuân thủ nghiêm ngặt các tiêu chuẩn <strong>Apple App Store Review Guidelines</strong> (Mục 5.1 - Privacy).</p>
             </div>
-            
-            <p><strong>Kiểm soát theo dõi quảng cáo:</strong></p>
-            <ul>
-                <li><strong>iOS:</strong> Settings → Privacy & Security → Tracking → Bật/Tắt "Allow Apps to Request to Track"</li>
-                <li><strong>Android:</strong> Settings → Google → Ads → Bật/Tắt "Opt out of Personalized Ads"</li>
-            </ul>
-            <p>Xem <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></p>
-        </section>
 
-        <section class="section">
-            <h2>4. QUYỀN SỞ HỮU VÀ XÓA DỮ LIỆU</h2>
-            <p>Bạn có <strong>toàn quyền kiểm soát dữ liệu</strong> vì chúng nằm hoàn toàn trên thiết bị của bạn.</p>
-            <p>Khi gỡ ứng dụng (Uninstall), hệ điều hành tự động xóa 100% dữ liệu cục bộ. Không có bản sao nào được giữ trên server.</p>
-        </section>
+            <section class="section">
+                <h2>1. THU THẬP THÔNG TIN CÁ NHÂN</h2>
+                <p><strong>Menki 1000+ là ứng dụng ngoại tuyến (Offline App).</strong></p>
+                <p>Chúng tôi <strong>KHÔNG</strong> yêu cầu đăng ký tài khoản, <strong>KHÔNG</strong> thu thập, <strong>KHÔNG</strong> lưu trữ, <strong>KHÔNG</strong> theo dõi và <strong>KHÔNG</strong> chia sẻ bất kỳ thông tin cá nhân nào:</p>
+                <ul>
+                    <li>Họ tên, số điện thoại, email, địa chỉ</li>
+                    <li>Vị trí địa lý chính xác (GPS)</li>
+                    <li>Số định danh thiết bị (IMEI/IDFA)</li>
+                    <li>Thông tin thanh toán</li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>5. BẢO VỆ TRẺ EM</h2>
-            <p>Ứng dụng tuân thủ:</p>
-            <ul>
-                <li><strong>COPPA</strong> (Children's Online Privacy Protection Act - Hoa Kỳ)</li>
-                <li><strong>GDPR</strong> (General Data Protection Regulation - Châu Âu)</li>
-            </ul>
-            <p>An toàn tuyệt đối cho mọi lứa tuổi, bao gồm trẻ em dưới 13 tuổi.</p>
-        </section>
+            <section class="section">
+                <h2>2. DỮ LIỆU LƯU TRỮ CỤC BỘ</h2>
+                <p>Dữ liệu học tập được lưu trữ <strong>hoàn toàn cục bộ</strong> trên thiết bị qua AsyncStorage:</p>
+                <ul>
+                    <li>Lịch sử làm đề thi thử</li>
+                    <li>Tiến độ ôn tập từng chương</li>
+                    <li>Danh sách "Câu hỏi hay sai"</li>
+                    <li>Tùy chọn ngôn ngữ (Tiếng Việt / Tiếng Nhật)</li>
+                </ul>
+                <p>Chúng tôi <strong>KHÔNG</strong> có máy chủ (Server) và <strong>KHÔNG</strong> truy cập dữ liệu từ xa.</p>
+            </section>
 
-        <section class="section">
-            <h2>6. COOKIES</h2>
-            <p>Menki 1000+ <strong>KHÔNG sử dụng</strong> cookies hoặc công nghệ theo dõi tương tự.</p>
-            <p>Trang web GitHub Pages có thể sử dụng cookies cơ bản để hoạt động.</p>
-        </section>
+            <section class="section">
+                <h2>3. DỊCH VỤ QUẢNG CÁO - GOOGLE ADMOB</h2>
+                <p><strong>Menki 1000+ sử dụng Google AdMob</strong> để hiển thị quảng cáo và duy trì miễn phí ứng dụng.</p>
+                
+                <div class="highlight">
+                    <div class="highlight-title">Google AdMob có thể thu thập:</div>
+                    <ul style="margin: 10px 0 0 0;">
+                        <li>Loại thiết bị và hệ điều hành</li>
+                        <li>Dữ liệu sử dụng ứng dụng</li>
+                        <li>Vị trí địa lý ước tính</li>
+                        <li>Dữ liệu click và impression quảng cáo</li>
+                    </ul>
+                </div>
+                
+                <p><strong>Kiểm soát theo dõi quảng cáo:</strong></p>
+                <ul>
+                    <li><strong>iOS:</strong> Settings → Privacy & Security → Tracking → Bật/Tắt "Allow Apps to Request to Track"</li>
+                    <li><strong>Android:</strong> Settings → Google → Ads → Bật/Tắt "Opt out of Personalized Ads"</li>
+                </ul>
+                <p>Xem <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></p>
+            </section>
 
-        <section class="section">
-            <h2>7. THAY ĐỔI VÀ LIÊN HỆ</h2>
-            <p>Chính sách có thể được cập nhật. Mọi thay đổi có hiệu lực khi đăng tải trên trang này.</p>
-            <p><strong>Liên hệ hỗ trợ:</strong></p>
-            <ul>
-                <li>Zalo: <a href="https://zalo.me/07091033238" target="_blank">https://zalo.me/07091033238</a></li>
-                <li>Tính năng "Liên hệ" trong ứng dụng</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>4. QUYỀN SỞ HỮU VÀ XÓA DỮ LIỆU</h2>
+                <p>Bạn có <strong>toàn quyền kiểm soát dữ liệu</strong> vì chúng nằm hoàn toàn trên thiết bị của bạn.</p>
+                <p>Khi gỡ ứng dụng (Uninstall), hệ điều hành tự động xóa 100% dữ liệu cục bộ. Không có bản sao nào được giữ trên server.</p>
+            </section>
+
+            <section class="section">
+                <h2>5. BẢO VỆ TRẺ EM</h2>
+                <p>Ứng dụng tuân thủ:</p>
+                <ul>
+                    <li><strong>COPPA</strong> (Children's Online Privacy Protection Act - Hoa Kỳ)</li>
+                    <li><strong>GDPR</strong> (General Data Protection Regulation - Châu Âu)</li>
+                </ul>
+                <p>An toàn tuyệt đối cho mọi lứa tuổi, bao gồm trẻ em dưới 13 tuổi.</p>
+            </section>
+
+            <section class="section">
+                <h2>6. COOKIES</h2>
+                <p>Menki 1000+ <strong>KHÔNG sử dụng</strong> cookies hoặc công nghệ theo dõi tương tự.</p>
+                <p>Trang web GitHub Pages có thể sử dụng cookies cơ bản để hoạt động.</p>
+            </section>
+
+            <section class="section">
+                <h2>7. THAY ĐỔI VÀ LIÊN HỆ</h2>
+                <p>Chính sách có thể được cập nhật. Mọi thay đổi có hiệu lực khi đăng tải trên trang này.</p>
+                <p><strong>Liên hệ hỗ trợ:</strong></p>
+                <ul>
+                    <li>Zalo: <a href="https://zalo.me/07091033238" target="_blank">https://zalo.me/07091033238</a></li>
+                    <li>Tính năng "Liên hệ" trong ứng dụng</li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- Japanese Content -->
+        <div id="content-ja" style="display: none;">
+            <div class="intro">
+                <p>Menki 1000+へようこそ。私たちはユーザーのプライバシーおよび個人情報の保護を最優先に考えております。本プライバシーポリシーは、Apple App Store Review Guidelines（セクション5.1 - プライバシー）に厳格に準拠しております。</p>
+            </div>
+
+            <section class="section">
+                <h2>1. 個人情報の収集について</h2>
+                <p><strong>Menki 1000+は完全なオフラインアプリとして設計・運営されています。</strong></p>
+                <p>私たちはアカウント登録を要求せず、以下の個人情報を一切収集・保存・追跡・共有致しません：</p>
+                <ul>
+                    <li>氏名、電話番号、メールアドレス、住所</li>
+                    <li>位置情報（GPS）</li>
+                    <li>デバイス識別子（IMEI/IDFA）</li>
+                    <li>支払い情報</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>2. ローカルデータの保存について</h2>
+                <p>学習データはすべてデバイスの<strong>AsyncStorageにローカル保存</strong>されます：</p>
+                <ul>
+                    <li>模擬試験の履歴</li>
+                    <li>章ごとの学習進捗</li>
+                    <li>間違えた問題のリスト</li>
+                    <li>言語設定（ベトナム語 / 日本語）</li>
+                </ul>
+                <p>私たちは外部サーバーを保有しておらず、リモートアクセスする権限はありません。</p>
+            </section>
+
+            <section class="section">
+                <h2>3. 広告サービス - GOOGLE ADMOB</h2>
+                <p><strong>Menki 1000+はGoogle AdMob</strong>を使用して広告を表示し、アプリの無料維持しております。</p>
+                
+                <div class="highlight">
+                    <div class="highlight-title">Google AdMobが収集するデータ：</div>
+                    <ul style="margin: 10px 0 0 0;">
+                        <li>デバイスの種類とOS</li>
+                        <li>アプリ使用データ</li>
+                        <li>推定位置情報</li>
+                        <li>広告のクリックとインプレッションのデータ</li>
+                    </ul>
+                </div>
+                
+                <p><strong>広告トラッキングの管理：</strong></p>
+                <ul>
+                    <li><strong>iOS：</strong>設定 → プライバシーとセキュリティ → トラッキング → 「Appによるトラッキングを許可」のオン/オフ</li>
+                    <li><strong>Android：</strong>設定 → Google → 広告 → 「パーソナライズド広告をオフ」のオン/オフ</li>
+                </ul>
+                <p><a href="https://policies.google.com/privacy" target="_blank">Googleのプライバシーサービス</a></p>
+            </section>
+
+            <section class="section">
+                <h2>4. ユーザーのデータ管理および削除の権利</h2>
+                <p>すべてのデータはユーザーのデバイスに保存されているため、<strong>ユーザー自身が完全な管理権限</strong>を持ちます。</p>
+                <p>アプリをアンインストール（削除）すると、OSの標準機能によりローカルデータが100%自動的に完全消去されます。サーバーにコピーが残ることは一切ありません。</p>
+            </section>
+
+            <section class="section">
+                <h2>5. 子ども向けのプライバシー保護</h2>
+                <p>当アプリは以下の法律を遵守しております：</p>
+                <ul>
+                    <li><strong>COPPA</strong>（Children's Online Privacy Protection Act - 米国）</li>
+                    <li><strong>GDPR</strong>（General Data Protection Regulation - EU）</li>
+                </ul>
+                <p>13歳未満のお子様を含むすべての年齢層のユーザーに安全です。</p>
+            </section>
+
+            <section class="section">
+                <h2>6. Cookieについて</h2>
+                <p>Menki 1000+はCookieまたは類似のトラッキングテクノロジーを<strong>一切使用しません</strong>。</p>
+                <p>GitHub Pagesウェブサイトでは基本的なCookieを使用場合があります。</p>
+            </section>
+
+            <section class="section">
+                <h2>7. ポリシーの変更およびお問い合わせ</h2>
+                <p>私たちは本プライバシーポリシーを随時更新することがあります。変更はページに最新版が公開された時点で有効となります。</p>
+                <p><strong>お問い合わせ：</strong></p>
+                <ul>
+                    <li>Zalo：<a href="https://zalo.me/07091033238" target="_blank">https://zalo.me/07091033238</a></li>
+                    <li>アプリ内のお問い合わ Nosせ機能</li>
+                </ul>
+            </section>
+        </div>
+
+        <script>
+            function toggleLang(lang) {
+                const viContent = document.getElementById('content-vi');
+                const jaContent = document.getElementById('content-ja');
+                const btnVi = document.getElementById('btn-vi');
+                const btnJa = document.getElementById('btn-ja');
+                
+                if (lang === 'vi') {
+                    viContent.style.display = 'block';
+                    jaContent.style.display = 'none';
+                    btnVi.style.background = '#0b3575';
+                    btnVi.style.color = 'white';
+                    btnJa.style.background = '#e5e7eb';
+                    btnJa.style.color = '#1a1a1a';
+                } else {
+                    viContent.style.display = 'none';
+                    jaContent.style.display = 'block';
+                    btnJa.style.background = '#0b3575';
+                    btnJa.style.color = 'white';
+                    btnVi.style.background = '#e5e7eb';
+                    btnVi.style.color = '#1a1a1a';
+                }
+            }
+        </script>
 
         <footer class="footer">
             <p>© 2026 Menki 1000+. All rights reserved.</p>

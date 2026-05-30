@@ -1,132 +1,245 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chính Sách Bảo Mật - Menki 1000+</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1, h2 { color: #1a1a1a; }
-        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
-        .ja { color: #666; font-size: 0.9em; }
-        ul { padding-left: 20px; }
-        a { color: #0066cc; }
-    </style>
-</head>
-<body>
+import React from "react";
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Linking } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import type { Lang } from "../types";
 
-<h1>CHÍNH SÁCH BẢO MẬT ỨNG DỤNG MENKI 1000+</h1>
-<p><strong>Áp dụng cho:</strong> Menki 1000+, Menki 1000+ Ôn Thi Xe Máy Nhật, Menki 1000+ 原付免許問題集<br>
-<strong>Cập nhật:</strong> Tháng 5, 2026</p>
+interface PrivacyScreenProps {
+  lang: Lang;
+  onBack: () => void;
+}
 
-<hr>
+const VI = {
+  title: "Chính sách bảo mật",
+  versions: "Áp dụng cho: Menki 1000+, Menki 1000+ Ôn Thi Xe Máy Nhật, Menki 1000+ 原付免許問題集",
+  lastUpdated: "Cập nhật lần cuối: Tháng 5, 2026",
+  intro:
+    "Chào mừng bạn đến với Menki 1000+. Chúng tôi cam kết bảo vệ tuyệt đối quyền riêng tư và dữ liệu cá nhân của bạn. Chính sách này tuân thủ nghiêm ngặt các tiêu chuẩn Apple App Store Review Guidelines (Mục 5.1 - Privacy).",
+  section1Title: "1. THU THẬP THÔNG TIN CÁ NHÂN",
+  section1P1:
+    "Menki 1000+ là ứng dụng ngoại tuyến (Offline App).",
+  section1P2:
+    "Chúng tôi KHÔNG yêu cầu đăng ký tài khoản, KHÔNG thu thập, KHÔNG lưu trữ, KHÔNG theo dõi và KHÔNG chia sẻ bất kỳ thông tin cá nhân nào (họ tên, số điện thoại, email, địa chỉ, vị trí GPS, số IMEI/IDFA).",
+  section2Title: "2. DỮ LIỆU LƯU TRỮ CỤC BỘ",
+  section2P1:
+    "Dữ liệu học tập được lưu trữ hoàn toàn cục bộ trên thiết bị qua AsyncStorage: Lịch sử làm đề thi, tiến độ ôn tập, danh sách câu hỏi hay sai, và tùy chọn ngôn ngữ.",
+  section2P2:
+    "Chúng tôi KHÔNG có máy chủ (Server) và KHÔNG truy cập dữ liệu từ xa.",
+  section3Title: "3. DỊCH VỤ QUẢNG CÁO - GOOGLE ADMOB",
+  section3P1:
+    "Menki 1000+ sử dụng Google AdMob để hiển thị quảng cáo và duy trì miễn phí ứng dụng.",
+  section3P2:
+    "Google AdMob có thể thu thập: Loại thiết bị, hệ điều hành, dữ liệu sử dụng, vị trí ước tính, và dữ liệu click/impression quảng cáo.",
+  section3P3:
+    "Kiểm soát theo dõi: iOS: Settings → Privacy & Security → Tracking / Android: Settings → Google → Ads",
+  section4Title: "4. QUYỀN SỞ HỮU VÀ XÓA DỮ LIỆU",
+  section4P1:
+    "Bạn có toàn quyền kiểm soát dữ liệu vì chúng nằm hoàn toàn trên thiết bị của bạn.",
+  section4P2:
+    "Khi gỡ ứng dụng (Uninstall), hệ điều hành tự động xóa 100% dữ liệu cục bộ. Không có bản sao nào được giữ trên server.",
+  section5Title: "5. BẢO VỆ TRẺ EM",
+  section5P1:
+    "Ứng dụng tuân thủ COPPA (Hoa Kỳ) và GDPR (Châu Âu). An toàn tuyệt đối cho mọi lứa tuổi, bao gồm trẻ em dưới 13 tuổi.",
+  section6Title: "6. COOKIES",
+  section6P1:
+    "Menki 1000+ KHÔNG sử dụng cookies. Trang web GitHub Pages có thể sử dụng cookies cơ bản.",
+  section7Title: "7. THAY ĐỔI VÀ LIÊN HỆ",
+  section7P1:
+    "Chính sách có thể được cập nhật. Mọi thay đổi có hiệu lực khi đăng tải trên trang này.",
+  section7P2:
+    "Liên hệ hỗ trợ: https://zalo.me/07091033238 hoặc tính năng Liên hệ trong ứng dụng.",
+  websiteBtn: "Xem bản đầy đủ trên Website",
+};
 
-<h2>1. THU THẬP THÔNG TIN CÁ NHÂN</h2>
-<p class="ja">個人情報の収集について</p>
+const JA = {
+  title: "プライバシーポリシー",
+  versions: "対象アプリ: Menki 1000+, Menki 1000+ Ôn Thi Xe Máy Nhật, Menki 1000+ 原付免許問題集",
+  lastUpdated: "最終更新日：2026年5月",
+  intro:
+    "Menki 1000+へようこそ。私たちはユーザーのプライバシーおよび個人情報の保護を最優先に考えております。本プライバシーポリシーは、Apple App Store Review Guidelines（セクション5.1 - プライバシー）に厳格に準拠しております。",
+  section1Title: "1. 個人情報の収集について",
+  section1P1:
+    "Menki 1000+は完全なオフラインアプリとして設計・運営されています。",
+  section1P2:
+    "私たちはアカウント登録を要求せず、氏名、電話番号、メールアドレス、住所、位置情報、デバイス識別子（IMEI/IDFA）などの个人信息は一切収集・保存・追跡・共有致しません。",
+  section2Title: "2. ローカルデータの保存について",
+  section2P1:
+    "学習データ（模擬試験履歴、章ごとの進捗、間違えた問題リスト、言語設定など）はすべてデバイスのAsyncStorageにローカル保存されます。",
+  section2P2:
+    "私たちは外部サーバーを保有しておらずリモートアクセスする権限はありません。",
+  section3Title: "3. 広告サービス - GOOGLE ADMOB",
+  section3P1:
+    "Menki 1000+はアプリの無料維持のためGoogle AdMobを使用して広告を表示しています。",
+  section3P2:
+    "Google AdMobはデバイスの種類、OS、使用状況データ、推定位置情報などを収集場合があります。",
+  section3P3:
+    "広告トラッキングの管理：iOS：設定 → プライバシーとセキュリティ → トラッキング / Android：設定 → Google → 広告",
+  section4Title: "4. ユーザーのデータ管理および削除の権利",
+  section4P1:
+    "すべてのデータはユーザーのデバイスに保存されているため、ユーザー自身が完全な管理権限を持ちます。",
+  section4P2:
+    "アプリをアンインストール（削除）すると、OSの標準機能によりローカルデータが100%自動的に完全消去されます。",
+  section5Title: "5. 子ども向けのプライバシー保護",
+  section5P1:
+    "私たちはCOPPA（米国）およびGDPR（EU）を遵守しています。13歳未満のお子様を含むすべての年齢層のユーザーに安全です。",
+  section6Title: "6. Cookieについて",
+  section6P1:
+    "Menki 1000+はCookieを使用しません。GitHub Pagesウェブサイトでは基本的なCookieを使用場合があります。",
+  section7Title: "7. ポリシーの変更およびお問い合わせ",
+  section7P1:
+    "私たちは本プライバシーポリシーを随時更新することがあります。変更はページに最新版が公開された時点で有効となります。",
+  section7P2:
+    "お問い合わせ：https://zalo.me/07091033238 またはアプリ内のお問い合わせ機能",
+  websiteBtn: "ウェブサイトで全文を見る",
+};
 
-<h3>Thông tin chúng tôi KHÔNG thu thập:</h3>
-<ul>
-    <li>Họ tên, số điện thoại, email, địa chỉ</li>
-    <li>Vị trí địa lý chính xác (GPS)</li>
-    <li>Số định danh thiết bị (IMEI)</li>
-    <li>Thông tin thanh toán</li>
-</ul>
+function SectionTitle({ children }: { children: string }) {
+  return <Text style={styles.sectionTitle}>{children}</Text>;
+}
 
-<p>Ứng dụng Menki 1000+ là <strong>ứng dụng ngoại tuyến (Offline App)</strong>. Chúng tôi <strong>KHÔNG</strong> yêu cầu đăng ký, <strong>KHÔNG</strong> thu thập hay chia sẻ thông tin cá nhân.</p>
+function BodyText({ children }: { children: string }) {
+  return <Text style={styles.bodyText}>{children}</Text>;
+}
 
-<p class="ja">当アプリは、完全なオフラインアプリとして設計・運営されています。個人を特定できる情報を収集、保存、追跡、または共有することは一切ありません。</p>
+function BilingualText({ vi, ja }: { vi: string; ja: string }) {
+  return (
+    <>
+      <BodyText>{vi}</BodyText>
+      <View style={styles.jaBlock}>
+        <Text style={styles.jaText}>{ja}</Text>
+      </View>
+    </>
+  );
+}
 
-<hr>
+export function PrivacyScreen({ lang }: PrivacyScreenProps) {
+  const insets = useSafeAreaInsets();
+  const T = lang === "vi" ? VI : JA;
 
-<h2>2. DỮ LIỆU LƯU TRỮ CỤC BỘ</h2>
-<p class="ja">ローカルデータの保存について</p>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{T.title}</Text>
+      <Text style={styles.versions}>{T.versions}</Text>
+      <Text style={styles.lastUpdated}>{T.lastUpdated}</Text>
 
-<p>Dữ liệu học tập được lưu trữ <strong>hoàn toàn cục bộ</strong> trên thiết bị qua AsyncStorage:</p>
-<ul>
-    <li>Lịch sử làm đề thi thử</li>
-    <li>Tiến độ ôn tập từng chương</li>
-    <li>Danh sách "Câu hỏi hay sai"</li>
-    <li>Tùy chọn ngôn ngữ (Tiếng Việt / Tiếng Nhật)</li>
-</ul>
+      <ScrollView
+        style={styles.scrollContent}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+      >
+        <BilingualText vi={T.intro} ja={T.intro} />
 
-<p>Chúng tôi <strong>KHÔNG</strong> có máy chủ và <strong>KHÔNG</strong> truy cập dữ liệu từ xa.</p>
+        <SectionTitle>{T.section1Title}</SectionTitle>
+        <BilingualText vi={T.section1P1} ja={T.section1P1} />
+        <BilingualText vi={T.section1P2} ja={T.section1P2} />
 
-<p class="ja">すべてのデータは AsyncStorage にのみローカル保存されます。当社は外部サーバーを保有しておらず、ユーザーのデバイスデータにリモートアクセスする権限はありません。</p>
+        <SectionTitle>{T.section2Title}</SectionTitle>
+        <BilingualText vi={T.section2P1} ja={T.section2P1} />
+        <BilingualText vi={T.section2P2} ja={T.section2P2} />
 
-<hr>
+        <SectionTitle>{T.section3Title}</SectionTitle>
+        <BilingualText vi={T.section3P1} ja={T.section3P1} />
+        <BilingualText vi={T.section3P2} ja={T.section3P2} />
+        <BilingualText vi={T.section3P3} ja={T.section3P3} />
 
-<h2>3. DỊCH VỤ QUẢNG CÁO - GOOGLE ADMOB</h2>
-<p class="ja">サードパーティ広告サービスについて</p>
+        <SectionTitle>{T.section4Title}</SectionTitle>
+        <BilingualText vi={T.section4P1} ja={T.section4P1} />
+        <BilingualText vi={T.section4P2} ja={T.section4P2} />
 
-<p>Ứng dụng sử dụng <strong>Google AdMob</strong> để hiển thị quảng cáo.</p>
+        <SectionTitle>{T.section5Title}</SectionTitle>
+        <BilingualText vi={T.section5P1} ja={T.section5P1} />
 
-<h3>Google AdMob có thể thu thập:</h3>
-<ul>
-    <li>Loại thiết bị và hệ điều hành</li>
-    <li>Dữ liệu sử dụng ứng dụng</li>
-    <li>Vị trí địa lý ước tính</li>
-    <li>Dữ liệu click và impression quảng cáo</li>
-</ul>
+        <SectionTitle>{T.section6Title}</SectionTitle>
+        <BilingualText vi={T.section6P1} ja={T.section6P1} />
 
-<h3>Kiểm soát theo dõi quảng cáo:</h3>
-<ul>
-    <li><strong>iOS:</strong> Settings → Privacy & Security → Tracking → Bật/Tắt "Allow Apps to Request to Track"</li>
-    <li><strong>Android:</strong> Settings → Google → Ads → Bật/Tắt "Opt out of Personalized Ads"</li>
-</ul>
+        <SectionTitle>{T.section7Title}</SectionTitle>
+        <BilingualText vi={T.section7P1} ja={T.section7P1} />
+        <BilingualText vi={T.section7P2} ja={T.section7P2} />
 
-<p><a href="https://policies.google.com/privacy" target="_blank">Xem Google Privacy Policy</a></p>
+        <TouchableOpacity
+          style={styles.websiteBtn}
+          activeOpacity={0.75}
+          onPress={() =>
+            Linking.openURL("https://ndhungtt151290-arch.github.io/menki1000-privacy/")
+          }
+        >
+          <Text style={styles.websiteBtnText}>{T.websiteBtn}</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  );
+}
 
-<p class="ja">Google AdMobはデバイスの種類、OS、使用状況データなどを収集場合があります。広告トラッキングの管理はデバイス設定から行えます。</p>
-
-<hr>
-
-<h2>4. QUYỀN SỞ HỮU VÀ XÓA DỮ LIỆU</h2>
-<p class="ja">ユーザーのデータ管理および削除の権利</p>
-
-<p>Bạn có toàn quyền kiểm soát dữ liệu. Khi gỡ ứng dụng, hệ điều hành tự động xóa 100% dữ liệu cục bộ.</p>
-
-<p class="ja">ユーザーはデバイスから当アプリをアンインストールすると、OSの標準機能によりローカルデータが100%自動的に完全消去されます。</p>
-
-<hr>
-
-<h2>5. BẢO VỆ TRẺ EM</h2>
-<p class="ja">子ども向けのプライバシー保護</p>
-
-<p>Ứng dụng tuân thủ <strong>COPPA</strong> (Hoa Kỳ) và <strong>GDPR</strong> (Châu Âu), an toàn cho mọi lứa tuổi.</p>
-
-<p class="ja">当어는，米国のCOPPAおよびEUのGDPRを遵守しています。13歳未満のお子様を含むすべての年齢層のユーザーに安全です。</p>
-
-<hr>
-
-<h2>6. COOKIES</h2>
-<p class="ja">Cookieおよび類似技術について</p>
-
-<p>Ứng dụng <strong>KHÔNG</strong> sử dụng cookies. Trang web GitHub Pages có thể sử dụng cookies cơ bản.</p>
-
-<p class="ja">当어는、Cookieを使用しません。当社のGitHub Pagesウェブサイトでは、基本的なCookieを使用場合があります。</p>
-
-<hr>
-
-<h2>7. THAY ĐỔI VÀ LIÊN HỆ</h2>
-<p class="ja">ポリシーの変更およびお問い合わせ</p>
-
-<p>Chính sách có thể được cập nhật. Mọi thay đổi có hiệu lực khi đăng tải trên trang này.</p>
-
-<p><strong>Liên hệ hỗ trợ:</strong> <a href="https://zalo.me/07091033238" target="_blank">https://zalo.me/07091033238</a></p>
-
-<p class="ja">当어는、本プライバシーポリシーを随時更新ことがあります。ご質問はApp Storeのサポート情報またはアプリ内のお問い合わ Nosせよりご連絡ください。</p>
-
-<hr>
-
-<p style="text-align: center; color: #666;">© 2026 Menki 1000+. All rights reserved.</p>
-
-</body>
-</html>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#rgba(11, 53, 117, 0.81)",
+    textAlign: "center",
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  versions: {
+    fontSize: 11,
+    color: "#525252",
+    textAlign: "center",
+    paddingHorizontal: 16,
+    marginBottom: 2,
+  },
+  lastUpdated: {
+    fontSize: 12,
+    color: "#525252",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+  scrollContent: {
+    flex: 1,
+  },
+  sectionTitle: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "rgba(15, 47, 95, 0.81)",
+    paddingHorizontal: 16,
+    marginTop: 14,
+    marginBottom: 8,
+  },
+  bodyText: {
+    fontSize: 14,
+    color: "#1c1917",
+    lineHeight: 22,
+    paddingHorizontal: 16,
+    marginBottom: 6,
+  },
+  jaBlock: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    backgroundColor: "rgba(238, 236, 235, 0.06)",
+    borderRadius: 8,
+    padding: 10,
+    borderLeftWidth: 3,
+    borderLeftColor: "#93c5fd",
+  },
+  jaText: {
+    fontSize: 13,
+    color: "#1e40af",
+    lineHeight: 20,
+    fontStyle: "italic",
+  },
+  websiteBtn: {
+    marginHorizontal: 16,
+    marginTop: 24,
+    marginBottom: 8,
+    backgroundColor: "rgba(238, 236, 235, 0.12)",
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: "rgba(202, 198, 196, 0.3)",
+  },
+  websiteBtnText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "rgba(11, 53, 117, 0.81)",
+  },
+});
